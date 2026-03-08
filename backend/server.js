@@ -426,7 +426,7 @@ app.get("/logout", async (req, res) => {
     res.clearCookie("connect.sid");
 
     res.redirect(
-      "https://accounts.google.com/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://localhost:5000/about.html"
+      "https://accounts.google.com/Logout?continue=https://appengine.google.com/_ah/logout?continue=${process.env.FRONTEND_URL || 'http://localhost:5000'}/about.html"
     );
 
   });
