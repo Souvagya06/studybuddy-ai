@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>StudyBuddy.AI - Student Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "primary": "#135bec",
+          "background-light": "#f6f6f8",
+          "background-dark": "#101622",
+        },
+        fontFamily: { "display": ["Inter"] },
+        borderRadius: {
+          "DEFAULT": "0.25rem", "lg": "0.5rem",
+          "xl": "0.75rem", "full": "9999px"
+        },
+      },
+    },
+  }
+</script>
+<style>
+  .difficulty-tooltip {
+    position: relative;
+    display: inline-block;
+  }
+  .difficulty-tooltip .tooltip-text {
+    visibility: hidden;
+    opacity: 0;
+    width: 220px;
+    background: #1e293b;
+    color: #f1f5f9;
+    text-align: left;
+    border-radius: 10px;
+    padding: 10px 12px;
+    position: absolute;
+    z-index: 100;
+    bottom: 130%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+    line-height: 1.5;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    transition: opacity 0.2s ease;
+    pointer-events: none;
+  }
+  .difficulty-tooltip .tooltip-text::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: #1e293b;
+  }
+  .difficulty-tooltip:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+  }
+</style>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
+
+<!-- Top Navigation Bar -->
+<header class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 px-6 md:px-20 py-4 bg-white dark:bg-slate-900 sticky top-0 z-50">
+  <div class="flex items-center gap-2">
+    <div class="text-primary">
+      
+    </div>
+    <h2 class="text-slate-900 dark:text-white text-xl font-bold tracking-tight">StudyBuddy.AI</h2>
+  </div>
+  <div class="flex flex-1 justify-end items-center gap-8">
+    <nav class="hidden md:flex items-center gap-8">
+      <a class="text-primary text-sm font-bold leading-normal border-b-2 border-primary pb-0.5" href="#">Dashboard</a>
+      <a class="text-slate-600 dark:text-slate-300 text-sm font-medium hover:text-primary transition-colors" href="./assignments.html">Assignments</a>
+      <a class="text-slate-600 dark:text-slate-300 text-sm font-medium hover:text-primary transition-colors" href="./doubts.html">Doubts</a>
+    </nav>
+
+  </div>
+</header>
+
+<!-- MAIN -->
+<main class="pt-8 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+
+  <!-- Welcome Section -->
+  <section class="mb-8">
+    <h2 class="text-3xl font-extrabold">Welcome back, <span id="username">User</span>! 👋</h2>
+    <p class="text-slate-500 mt-2">Keep pushing forward! Success is built on small daily wins.</p>
+  </section>
+
+  <!-- Main Content Grid -->
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+    <!-- Left Column -->
+    <div class="lg:col-span-2 space-y-8">
+      <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
+        <div class="px-6 py-4 border-b border-slate-200 dark:border-slate-700 flex justify-between items-center">
+          <h3 class="font-bold text-lg text-slate-900 dark:text-white">My Classes</h3>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="bg-slate-50 dark:bg-slate-900/50">
+                <th class="px-6 py-3 text-xs font-bold text-slate-500 uppercase tracking-wider">Subject</th>
+                <th class="px-6 py-3 text-xs font-bold text-slate-500 uppercase tracking-wider">Title</th>
+                <th class="px-6 py-3 text-xs font-bold text-slate-500 uppercase tracking-wider text-center">Difficulty</th>
+                <th class="px-6 py-3 text-xs font-bold text-slate-500 uppercase tracking-wider">Countdown</th>
+              </tr>
+            </thead>
+            <tbody id="classesTable" class="divide-y divide-slate-100 dark:divide-slate-700">
+              <tr id="loadingRow">
+                <td colspan="4" class="text-center py-6 text-slate-500 font-medium">Loading classes...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT SIDE -->
+    <div>
+      <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-lg p-6 space-y-6">
+        <div class="relative">
+          
+          <input id="searchBox" type="text" placeholder="Search files..." onkeyup="searchFiles()"
+            class="w-full pl-12 pr-4 py-3 rounded-full border border-purple-300 focus:ring-2 focus:ring-purple-500 outline-none"/>
+        </div>
+        <div class="flex gap-2">
+          <input type="file" id="fileInput" class="hidden">
+          <button onclick="uploadFile()" class="flex-1 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold py-3 rounded-xl shadow-md hover:scale-[1.02] transition">
+            Upload files
+          </button>
+        </div>
+        <div class="flex gap-6 text-sm font-medium border-b pb-2">
+          <button class="text-purple-600 border-b-2 border-purple-600 pb-2">Your Uploads</button>
+        </div>
+        <div class="border-2 border-dashed border-purple-300 rounded-2xl p-6 space-y-4">
+          <div id="emptyUploads" class="text-center">
+            <div class="text-5xl">📁</div>
+            <h3 class="font-bold text-lg">Organise your uploads</h3>
+            <p class="text-sm text-slate-500">Keep your uploads neatly organised here.</p>
+          </div>
+          <div id="uploadsList" class="space-y-3 hidden"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<!-- Footer -->
+<footer class="mt-auto border-t border-slate-200 dark:border-slate-800 py-8 px-6 lg:px-20 text-center">
+  <p class="text-sm text-slate-500">StudyBuddy.AI | Empowering your learning journey.</p>
+</footer>
+
+<script>
+
+/* ---------------- DIFFICULTY BADGE HELPER ---------------- */
+
+function difficultyBadge(difficulty) {
+
+  // Handle both old string format and new {level, reason} object format
+  let level = "Medium";
+  let reason = "Moderate complexity.";
+
+  if (typeof difficulty === "object" && difficulty !== null) {
+    level  = difficulty.level  || "Medium";
+    reason = difficulty.reason || "Moderate complexity.";
+  } else if (typeof difficulty === "string") {
+    // fallback for old string format
+    const lower = difficulty.toLowerCase();
+    if (lower.includes("easy"))   level = "Easy";
+    else if (lower.includes("hard")) level = "Hard";
+    else level = "Medium";
+    reason = difficulty;
+  }
+
+  const styles = {
+    Easy:   { bg: "bg-emerald-100", text: "text-emerald-700", border: "border-emerald-300", dot: "bg-emerald-500", icon: "🟢" },
+    Medium: { bg: "bg-amber-100",   text: "text-amber-700",   border: "border-amber-300",   dot: "bg-amber-500",   icon: "🟡" },
+    Hard:   { bg: "bg-red-100",     text: "text-red-700",     border: "border-red-300",     dot: "bg-red-500",     icon: "🔴" },
+    NA:     { bg: "bg-slate-100",   text: "text-slate-500",   border: "border-slate-300",   dot: "bg-slate-400",   icon: "⚪" },
+  };
+
+  const s = styles[level] || styles["NA"];
+
+  return `
+    <div class="difficulty-tooltip flex justify-center">
+      <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold border cursor-default select-none ${s.bg} ${s.text} ${s.border}">
+        <span class="w-2 h-2 rounded-full ${s.dot}"></span>
+        ${level}
+      </span>
+      <div class="tooltip-text">
+        <div class="font-semibold mb-1">${s.icon} ${level} Difficulty</div>
+        <div class="text-slate-300">${reason}</div>
+      </div>
+    </div>
+  `;
+}
+
+
+/* ---------------- USER NAME ---------------- */
+
+fetch("/api/user")
+  .then(res => { if (!res.ok) throw new Error("Not logged in"); return res.json(); })
+  .then(data => {
+    if (data.name) document.getElementById("username").textContent = data.name.split(" ")[0];
+  })
+  .catch(err => console.error("User fetch error:", err));
+
+
+/* ---------------- GOOGLE CLASSROOM DATA ---------------- */
+
+async function loadClasses() {
+
+  const table = document.getElementById("classesTable");
+
+  try {
+
+    const res = await fetch("/api/classes", { credentials: "include" });
+    const classes = await res.json();
+
+    table.innerHTML = "";
+
+    if (classes.length === 0) {
+      table.innerHTML = `<tr><td colspan="4" class="text-center py-6 text-slate-500">No classes found</td></tr>`;
+      return;
+    }
+
+    classes.forEach(c => {
+      table.innerHTML += `
+        <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/30 transition-colors">
+          <td class="px-6 py-4">
+            <span class="text-sm text-slate-600 dark:text-slate-300">${c.subject}</span>
+          </td>
+          <td class="px-6 py-4">
+            <p class="text-sm font-semibold text-slate-900 dark:text-white">${c.title}</p>
+          </td>
+          <td class="px-6 py-4 text-center">
+            ${difficultyBadge(c.difficulty)}
+          </td>
+          <td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-300">
+            ${c.countdown}
+          </td>
+        </tr>
+      `;
+    });
+
+  } catch (err) {
+    table.innerHTML = `<tr><td colspan="4" class="text-center py-6 text-red-500">Failed to load classes</td></tr>`;
+    console.error(err);
+  }
+}
+
+loadClasses();
+
+
+/* ---------------- FILE UPLOAD ---------------- */
+
+const fileInput = document.getElementById("fileInput");
+
+fileInput.addEventListener("change", async () => {
+  if (!fileInput.files.length) return;
+  const formData = new FormData();
+  formData.append("file", fileInput.files[0]);
+  try {
+    await fetch("/api/upload", { method: "POST", body: formData });
+    loadUploads();
+  } catch (err) {
+    console.error("Upload failed:", err);
+  }
+});
+
+function uploadFile() { fileInput.click(); }
+
+
+/* ---------------- LOAD UPLOADS ---------------- */
+
+async function loadUploads() {
+  try {
+    const res = await fetch("/api/uploads");
+    const files = await res.json();
+    const emptyBox = document.getElementById("emptyUploads");
+    const list = document.getElementById("uploadsList");
+    list.innerHTML = "";
+    if (files.length === 0) {
+      emptyBox.classList.remove("hidden");
+      list.classList.add("hidden");
+      return;
+    }
+    emptyBox.classList.add("hidden");
+    list.classList.remove("hidden");
+    files.forEach(file => {
+      list.innerHTML += `
+        <div class="flex justify-between items-center bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-xl">
+          <div class="flex items-center gap-3">
+            <span class="text-xl">📄</span>
+            <span class="text-sm font-medium">${file.filename}</span>
+          </div>
+          <a href="/${file.filepath}" target="_blank" class="text-purple-600 text-sm font-semibold hover:underline">Open</a>
+        </div>
+      `;
+    });
+  } catch (err) {
+    console.error("Failed to load uploads:", err);
+  }
+}
+
+loadUploads();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,266 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head> 
+<meta charset="utf-8"/> 
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/> 
+<title>StudyBuddy.AI - Login &amp; Sign Up</title> 
+<link href="https://fonts.googleapis.com" rel="preconnect"/> 
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/> 
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1" rel="stylesheet"/>
+<style>
+:root {
+  --primary-color: #135bec;
+  --primary-hover: #0f48bd;
+  --text-main: #333;
+  --text-muted: #666;
+  --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  --white: #fff;
+  --shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: var(--bg-gradient);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  color: var(--text-main);
+}
+
+header {
+  background: var(--white);
+  padding: 1rem 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  width: 100%;
+  border-bottom: 1px solid #e2e8f0;
+  z-index: 50;
+}
+
+.logo-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.logo-icon {
+  color: #135bec;
+  font-size: 1.8rem;
+}
+
+.logo {
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: #1e293b;
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  gap: 2rem;
+}
+
+nav a {
+  color: #475569;
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+nav a:hover { color: var(--primary-color); }
+
+main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 100px;
+}
+
+.auth-container {
+  background: var(--white);
+  width: 100%;
+  max-width: 450px;
+  padding: 2.5rem;
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+}
+
+.tabs {
+  display: flex;
+  border-bottom: 2px solid #eee;
+  margin-bottom: 2rem;
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 1rem;
+  border: none;
+  background: none;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--text-muted);
+  font-family: 'Poppins', sans-serif;
+}
+
+.tab-btn.active {
+  color: var(--primary-color);
+  border-bottom: 2px solid var(--primary-color);
+}
+
+.form-group { margin-bottom: 1.5rem; }
+
+input {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1.5px solid #e1e1e1;
+  border-radius: 10px;
+  font-family: 'Poppins', sans-serif;
+}
+
+input:focus {
+  border-color: var(--primary-color);
+  outline: none;
+}
+
+.btn-primary {
+  width: 100%;
+  padding: 1rem;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+}
+
+.btn-primary:hover { background: var(--primary-hover); }
+
+.form-footer {
+  text-align: center;
+  margin-top: 1.2rem;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.hidden { display: none; }
+
+footer {
+  text-align: center;
+  padding: 1.5rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo-wrap">
+    <span class="material-symbols-outlined logo-icon">school</span>
+    <span class="logo">StudyBuddy.AI</span>
+  </div>
+  <nav>
+    <ul>
+      
+    </ul>
+  </nav>
+</header>
+
+<main>
+<div class="auth-container">
+
+<div class="tabs">
+  <button class="tab-btn active" id="login-tab" onclick="switchTab('login')">Login</button>
+  <button class="tab-btn" id="signup-tab" onclick="switchTab('signup')">Sign Up</button>
+</div>
+
+<!-- LOGIN -->
+<div id="login-section">
+<form action="/api/login" method="POST">
+  <div class="form-group">
+    <input name="email" type="email" placeholder="Email Address" required />
+  </div>
+  <div class="form-group">
+    <input name="password" type="password" placeholder="Password" required />
+  </div>
+  <button class="btn-primary" type="submit">Login</button>
+</form>
+<div class="form-footer">
+  Don't have an account?
+  <a href="javascript:void(0)" onclick="switchTab('signup')">Create an account</a>
+</div>
+</div>
+
+<!-- SIGNUP -->
+<div id="signup-section" class="hidden">
+<form action="/api/signup" method="POST">
+  <div class="form-group">
+    <input name="name" type="text" placeholder="Full Name" required />
+  </div>
+  <div class="form-group">
+    <input name="email" type="email" placeholder="Email Address" required />
+  </div>
+  <div class="form-group">
+    <input name="password" type="password" placeholder="Password" required />
+  </div>
+  <div class="form-group">
+    <input type="password" placeholder="Confirm Password" required />
+  </div>
+  <button class="btn-primary" type="submit">Sign Up</button>
+</form>
+<div class="form-footer">
+  Already have an account?
+  <a href="javascript:void(0)" onclick="switchTab('login')">Login</a>
+</div>
+</div>
+
+</div>
+</main>
+
+<footer>
+StudyBuddy.AI | IEM Kolkata
+</footer>
+
+<script>
+function switchTab(tab) {
+  const loginSection = document.getElementById('login-section');
+  const signupSection = document.getElementById('signup-section');
+  const loginTab = document.getElementById('login-tab');
+  const signupTab = document.getElementById('signup-tab');
+
+  if (tab === 'login') {
+    loginSection.classList.remove('hidden');
+    signupSection.classList.add('hidden');
+    loginTab.classList.add('active');
+    signupTab.classList.remove('active');
+  } else {
+    loginSection.classList.add('hidden');
+    signupSection.classList.remove('hidden');
+    loginTab.classList.remove('active');
+    signupTab.classList.add('active');
+  }
+}
+
+const params = new URLSearchParams(window.location.search);
+const error = params.get("error");
+const tab = params.get("tab");
+
+if (tab === "signup") switchTab("signup");
+if (tab === "login") switchTab("login");
+
+if (error === "userexists") alert("User already exists");
+if (error === "nouser") alert("User doesn't exist");
+</script>
+
+</body>
+</html>

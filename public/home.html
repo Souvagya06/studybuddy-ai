@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#135bec",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: { "display": ["Inter", "sans-serif"] },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem", "lg": "0.5rem",
+                        "xl": "0.75rem", "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<title>StudyBuddy.AI - Empower Your Learning</title>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
+<div class="relative flex min-h-screen flex-col overflow-x-hidden">
+
+<!-- NAVBAR — matches about.html -->
+<header class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 px-6 md:px-20 py-4 bg-white dark:bg-slate-900 sticky top-0 z-50">
+  <div class="flex items-center gap-2">
+    <div class="text-primary">
+      <span class="material-symbols-outlined text-3xl">school</span>
+    </div>
+    <h2 class="text-slate-900 dark:text-white text-xl font-bold tracking-tight">StudyBuddy.AI</h2>
+  </div>
+  <div class="flex flex-1 justify-end items-center gap-8">
+    <nav class="hidden md:flex items-center gap-8">
+      <a class="text-slate-600 dark:text-slate-300 text-sm font-medium hover:text-primary transition-colors" href="/auth/google">Dashboard</a>
+    </nav>
+  </div>
+</header>
+
+<main class="flex-grow">
+<section class="mx-auto max-w-7xl px-6 py-16 md:py-24">
+<div class="grid items-center gap-12 lg:grid-cols-2">
+<div class="flex flex-col gap-8">
+<div class="space-y-4">
+<span class="inline-block rounded-full bg-primary/10 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-primary dark:bg-primary/20">The Future of Education</span>
+<h1 class="text-4xl font-black leading-tight tracking-tight text-slate-900 dark:text-white md:text-6xl">
+                                AI-Powered Assignment <span class="text-primary">Management</span> &amp; Doubt Solving
+                            </h1>
+<p class="max-w-xl text-lg leading-relaxed text-slate-600 dark:text-slate-400">
+                                Master your academics with StudyBuddy.AI. Manage assignments intelligently, track your progress with data-driven insights, and get instant solutions to your toughest doubts using advanced artificial intelligence.
+                            </p>
+</div>
+<div class="flex flex-wrap gap-4"></div>
+</div>
+<div class="relative">
+<div class="aspect-video w-full rounded-2xl bg-gradient-to-br from-primary to-indigo-600 p-1 shadow-2xl dark:shadow-primary/10">
+<div class="h-full w-full rounded-[14px] bg-slate-50 dark:bg-background-dark overflow-hidden relative">
+<div class="absolute inset-0 bg-cover bg-center opacity-80" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCdggnokiIfZk9l9rwCbw8J_jFOr_we__wLo9pelMozMZyS4mTL76x2K87qajYrxx54hwpR0sJwSFDH98FI5_HW8za5zwJRW6AB-7EsWLfIXO2o5x4GmBseifT67Q365iKQ1ej5ZRCy0oBPeNmYQkeEs_NXOWv9Eceow7QI-1gcpQtGgyROfXj-9mAfSVtOEkIl96Qpf8YhsD4PbqqMHRolnH7HsPL7_K-Sp33FkkrLEEy_-20yCtoJ29TWvkDwZlVm4azDARUJlJS1')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-slate-900/40 to-transparent"></div>
+</div>
+</div>
+<div class="absolute -bottom-6 -left-6 hidden h-32 w-32 rounded-2xl bg-white p-4 shadow-xl dark:bg-slate-800 md:block">
+<div class="flex h-full flex-col justify-between">
+<div class="h-2 w-full rounded-full bg-slate-100 dark:bg-slate-700">
+<div class="h-full w-3/4 rounded-full bg-primary"></div>
+</div>
+<p class="text-[10px] font-bold text-slate-400">PROGRESS</p>
+<p class="text-xl font-black text-primary">78%</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="bg-slate-50 py-24 dark:bg-slate-900/30">
+<div class="mx-auto max-w-7xl px-6">
+<div class="mb-16 text-center">
+<h2 class="text-3xl font-black tracking-tight text-slate-900 dark:text-white md:text-4xl">Powerful Features for Academic Excellence</h2>
+<p class="mx-auto mt-4 max-w-2xl text-slate-600 dark:text-slate-400">Our suite of tools is designed to help you stay ahead, understand complex topics, and optimize your study sessions like never before.</p>
+</div>
+<div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+<div class="group relative flex flex-col gap-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all hover:-translate-y-2 hover:shadow-xl dark:border-slate-800 dark:bg-slate-900">
+<div class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-white"><span class="material-symbols-outlined">psychology</span></div>
+<h3 class="text-lg font-bold text-slate-900 dark:text-white">Smart Assignment Intelligence</h3>
+<p class="text-sm leading-relaxed text-slate-500 dark:text-slate-400">Automated organization and prioritization based on your workload and deadline urgency.</p>
+</div>
+<div class="group relative flex flex-col gap-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all hover:-translate-y-2 hover:shadow-xl dark:border-slate-800 dark:bg-slate-900">
+<div class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-white"><span class="material-symbols-outlined">speed</span></div>
+<h3 class="text-lg font-bold text-slate-900 dark:text-white">Difficulty Estimator</h3>
+<p class="text-sm leading-relaxed text-slate-500 dark:text-slate-400">AI-driven predictions for how much time and cognitive effort each task will require.</p>
+</div>
+<div class="group relative flex flex-col gap-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all hover:-translate-y-2 hover:shadow-xl dark:border-slate-800 dark:bg-slate-900">
+<div class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-white"><span class="material-symbols-outlined">alarm</span></div>
+<h3 class="text-lg font-bold text-slate-900 dark:text-white">Deadline Reminder System</h3>
+<p class="text-sm leading-relaxed text-slate-500 dark:text-slate-400">Smart adaptive alerts that notify you at the best times to ensure you never miss a due date.</p>
+</div>
+<div class="group relative flex flex-col gap-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all hover:-translate-y-2 hover:shadow-xl dark:border-slate-800 dark:bg-slate-900">
+<div class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-white"><span class="material-symbols-outlined">description</span></div>
+<h3 class="text-lg font-bold text-slate-900 dark:text-white">AI Topic Summarizer</h3>
+<p class="text-sm leading-relaxed text-slate-500 dark:text-slate-400">Instantly generate concise summaries of long textbooks, articles, or complex lecture notes.</p>
+</div>
+<div class="group relative flex flex-col gap-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all hover:-translate-y-2 hover:shadow-xl dark:border-slate-800 dark:bg-slate-900">
+<div class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-white"><span class="material-symbols-outlined">chat_bubble</span></div>
+<h3 class="text-lg font-bold text-slate-900 dark:text-white">AI Doubt Assistant</h3>
+<p class="text-sm leading-relaxed text-slate-500 dark:text-slate-400">Get instant, step-by-step explanations for your academic queries, available 24/7.</p>
+</div>
+<div class="group relative flex flex-col gap-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all hover:-translate-y-2 hover:shadow-xl dark:border-slate-800 dark:bg-slate-900">
+<div class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-white"><span class="material-symbols-outlined">analytics</span></div>
+<h3 class="text-lg font-bold text-slate-900 dark:text-white">Answer Performance Analyzer</h3>
+<p class="text-sm leading-relaxed text-slate-500 dark:text-slate-400">In-depth feedback on your practice submissions to identify strengths and weaknesses.</p>
+</div>
+<div class="group relative flex flex-col gap-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all hover:-translate-y-2 hover:shadow-xl dark:border-slate-800 dark:bg-slate-900">
+<div class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-white"><span class="material-symbols-outlined">warning</span></div>
+<h3 class="text-lg font-bold text-slate-900 dark:text-white">Academic Risk Index</h3>
+<p class="text-sm leading-relaxed text-slate-500 dark:text-slate-400">An early warning system that predicts potential performance dips before they happen.</p>
+</div>
+<div class="group relative flex flex-col gap-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all hover:-translate-y-2 hover:shadow-xl dark:border-slate-800 dark:bg-slate-900">
+<div class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-white"><span class="material-symbols-outlined">database</span></div>
+<h3 class="text-lg font-bold text-slate-900 dark:text-white">Universal Document Intelligence</h3>
+<p class="text-sm leading-relaxed text-slate-500 dark:text-slate-400">Extract knowledge and searchable insights from PDFs, images, and handwritten notes.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="mx-auto max-w-7xl px-6 py-20">
+<div class="relative overflow-hidden rounded-[2rem] bg-primary px-8 py-16 text-center text-white md:px-16 md:py-24">
+<div class="absolute inset-0 bg-gradient-to-r from-primary to-indigo-700 opacity-90"></div>
+<div class="relative z-10 flex flex-col items-center gap-6">
+<h2 class="max-w-3xl text-3xl font-black leading-tight md:text-5xl">Ready to boost your academic productivity?</h2>
+<p class="max-w-2xl text-lg text-white/80">Join thousands of students who are already using AI to stay organized and excel in their studies.</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="mt-auto border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-background-dark py-8 px-4">
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+<div class="flex items-center gap-2">
+<div class="text-primary/60">
+<span class="material-symbols-outlined text-3xl font-bold">school</span>
+</div>
+<span class="text-sm font-semibold text-slate-500">StudyBuddy.AI</span>
+</div>
+<p class="text-sm text-slate-500 dark:text-slate-400">
+                StudyBuddy.AI | IEM Kolkata
+            </p>
+<div class="flex items-center gap-6">
+<p class="text-slate-400 text-xs mt-1">Version 1.0</p>
+</div>
+</div>
+</footer>
+</body></html>
