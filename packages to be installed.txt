@@ -1,9 +1,0 @@
-npm install express
-npm install axios
-npm install dotenv
-npm install multer
-npm install express-session
-npm install googleapis
-npm install @libsql/client
-npm install pdfjs-dist
-npm install pptx2json
