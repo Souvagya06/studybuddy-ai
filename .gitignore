@@ -3,3 +3,10 @@ node_modules/
 uploads/
 *.db
 .vscode/
+classroom.txt
+imp (contains api key).txt
+client_secret_*.json
+*.json
+!backend/package.json
+!backend/package-lock.json
+!frontend-dahsboard/package.json
