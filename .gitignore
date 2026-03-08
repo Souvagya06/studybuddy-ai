@@ -10,3 +10,6 @@ client_secret_*.json
 !backend/package.json
 !backend/package-lock.json
 !frontend-dahsboard/package.json
+classroom.txt
+imp (contains api key).txt
+client_secret_*.json
