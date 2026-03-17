@@ -69,7 +69,7 @@ An AI-powered Academic Intelligence & Performance Optimization Platform built fo
    node server.js
 ```
 
-5. Open https://studybuddy-ai-4px8.onrender.com/
+5. Open [http://localhost:5000](http://localhost:5000)
 
 ## 📄 License
 Built for IGP Hackathon 2026 — Institute of Engineering and Management, Kolkata.
