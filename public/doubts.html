@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>StudyBuddy.AI - AI Doubt Assistant</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#135bec",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 10px; }
+        .custom-scrollbar:hover::-webkit-scrollbar-thumb { background: #cbd5e1; }
+
+        /* Typing indicator */
+        .typing-dot { animation: typingBounce 1.2s infinite ease-in-out; }
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes typingBounce {
+            0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+            30% { transform: translateY(-6px); opacity: 1; }
+        }
+
+        /* Voice button pulse */
+        @keyframes pulse-ring {
+            0% { box-shadow: 0 0 0 0 rgba(19,91,236,0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(19,91,236,0); }
+            100% { box-shadow: 0 0 0 0 rgba(19,91,236,0); }
+        }
+        .voice-active { animation: pulse-ring 1s infinite; }
+
+        /* Message fade in */
+        .msg-enter { animation: fadeSlideIn 0.25s ease; }
+        @keyframes fadeSlideIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* AI text formatting */
+        .ai-text h1, .ai-text h2, .ai-text h3 { font-weight: 700; margin: 8px 0 4px; color: #135bec; }
+        .ai-text h1 { font-size: 1rem; }
+        .ai-text h2 { font-size: 0.95rem; }
+        .ai-text h3 { font-size: 0.9rem; }
+        .ai-text ul, .ai-text ol { padding-left: 1.2rem; margin: 6px 0; }
+        .ai-text ul { list-style: disc; }
+        .ai-text ol { list-style: decimal; }
+        .ai-text li { margin: 3px 0; }
+        .ai-text strong { font-weight: 700; color: #0f172a; }
+        .ai-text em { font-style: italic; color: #64748b; }
+        .ai-text code { background: #f1f5f9; padding: 1px 5px; border-radius: 4px; font-family: monospace; font-size: 0.85em; }
+        .ai-text p { margin: 5px 0; line-height: 1.65; }
+
+        .chat-item-active { background: #eff6ff !important; border-color: #135bec !important; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display min-h-screen flex flex-col">
+<!-- Top Navigation Bar -->
+<header class="sticky top-0 z-50 w-full bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 px-6 py-3">
+<div class="max-w-7xl mx-auto flex items-center justify-between">
+<div class="flex items-center gap-2 group cursor-pointer">
+
+<h2 class="text-slate-900 dark:text-white text-xl font-bold tracking-tight">StudyBuddy.AI</h2>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors font-medium text-sm" href="./dashboard.html">Dashboard</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors font-medium text-sm" href="./assignments.html">Assignments</a>
+<a class="text-primary dark:text-primary font-semibold text-sm relative after:content-[''] after:absolute after:-bottom-[18px] after:left-0 after:w-full after:h-1 after:bg-primary after:rounded-full" href="#">Doubts</a>
+</nav>
+<div class="flex items-center gap-4">
+<a href="./index.html" class="bg-primary text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-primary/90 transition-all shadow-md shadow-primary/20">Logout</a>
+</div>
+</div>
+</header>
+
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col max-w-7xl mx-auto w-full px-6 py-8 gap-6 overflow-hidden">
+<!-- Page Header -->
+<div class="flex flex-col gap-1">
+<h2 class="text-3xl font-extrabold text-slate-900 dark:text-white">AI Doubt Assistant</h2>
+<p class="text-slate-500 dark:text-slate-400">Ask your academic doubts and get instant AI guidance with step-by-step explanations.</p>
+</div>
+<div class="flex-1 flex flex-col lg:flex-row gap-6 min-h-0">
+
+<!-- Left Panel: Sidebar -->
+<aside class="w-full lg:w-80 flex flex-col gap-4 overflow-y-auto custom-scrollbar pr-1">
+
+  <!-- New Chat Button -->
+  <button onclick="startNewChat()"
+    class="w-full flex items-center justify-center gap-2 bg-primary text-white font-semibold py-3 rounded-xl hover:bg-primary/90 transition-all shadow-md shadow-primary/20">
+    <span class="material-symbols-outlined text-xl">add</span>
+    New Chat
+  </button>
+
+  <!-- Previous Chats -->
+  <div class="bg-white dark:bg-slate-900 p-5 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 flex-1 flex flex-col">
+    <div class="flex items-center justify-between mb-4">
+      <h3 class="text-sm font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider">Previous Chats</h3>
+      <span class="material-symbols-outlined text-slate-400 text-xl">history</span>
+    </div>
+    <div id="chatList" class="flex flex-col gap-2">
+      <p class="text-xs text-slate-400 text-center py-2">No chats yet</p>
+    </div>
+  </div>
+
+</aside>
+
+<!-- Right Panel: Chat Area -->
+<section class="flex-1 flex flex-col bg-white dark:bg-slate-900 rounded-xl shadow-md border border-slate-200 dark:border-slate-800 overflow-hidden relative">
+
+  <!-- Chat Title Bar -->
+  <div class="p-3 border-b border-slate-200 dark:border-slate-800 flex items-center gap-3 bg-slate-50/50 dark:bg-slate-800/30">
+    <div class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center shrink-0">
+      <span class="material-symbols-outlined text-white text-lg">auto_awesome</span>
+    </div>
+    <div>
+      <p id="chatTitle" class="text-sm font-bold text-slate-800 dark:text-white">New Conversation</p>
+      <p class="text-xs text-slate-400">StudyBuddy AI • Always ready to help</p>
+    </div>
+  </div>
+
+  <!-- Scrollable Chat Messages -->
+  <div id="messagesArea" class="flex-1 overflow-y-auto p-6 flex flex-col gap-6 custom-scrollbar">
+    <!-- Welcome message -->
+    <div class="flex items-start gap-4 max-w-[85%]">
+      <div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center shrink-0">
+        <span class="material-symbols-outlined text-white text-2xl">auto_awesome</span>
+      </div>
+      <div class="flex flex-col gap-2">
+        <div class="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded-xl rounded-tl-none shadow-sm">
+          <p class="text-sm leading-relaxed">Hello! I'm your StudyBuddy AI assistant. What can I help you understand today? Whether it's a complex equation or a historical event, I'm here to simplify it for you.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Typing Indicator -->
+  <div id="typingIndicator" class="hidden px-6 pb-3">
+    <div class="flex items-center gap-4 max-w-[85%]">
+      <div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center shrink-0">
+        <span class="material-symbols-outlined text-white text-2xl">auto_awesome</span>
+      </div>
+      <div class="bg-slate-100 dark:bg-slate-800 px-4 py-3 rounded-xl rounded-tl-none flex items-center gap-1.5">
+        <span class="typing-dot w-2 h-2 bg-slate-400 rounded-full block"></span>
+        <span class="typing-dot w-2 h-2 bg-slate-400 rounded-full block"></span>
+        <span class="typing-dot w-2 h-2 bg-slate-400 rounded-full block"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Input Area -->
+  <div class="p-6 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+    <!-- Attached file pill -->
+    <div id="uploadedDocPill" class="hidden mb-2 flex items-center gap-2 bg-primary/10 border border-primary/20 text-primary text-xs px-3 py-2 rounded-xl">
+      <span class="material-symbols-outlined text-[15px]">attach_file</span>
+      <span id="uploadedDocName" class="truncate flex-1 font-medium"></span>
+      <button onclick="clearDoc()" class="ml-1 text-primary/60 hover:text-primary flex-shrink-0">
+        <span class="material-symbols-outlined text-[14px]">close</span>
+      </button>
+    </div>
+    <div class="relative flex items-end gap-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-2 focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
+      <!-- Upload Button -->
+      <input type="file" id="docUploadInput" accept="*/*" class="hidden" onchange="handleDocUpload(event)" />
+      <button onclick="document.getElementById('docUploadInput').click()" title="Upload document"
+        class="p-2 text-slate-400 hover:text-primary transition-colors relative">
+        <span class="material-symbols-outlined">add</span>
+      </button>
+      <!-- Voice Button -->
+      <button id="voiceBtn" onclick="toggleVoice()" title="Voice input"
+        class="p-2 text-slate-400 hover:text-primary transition-colors">
+        <span class="material-symbols-outlined">mic</span>
+      </button>
+
+      <textarea
+        id="messageInput"
+        class="flex-1 bg-transparent border-none focus:ring-0 text-slate-900 dark:text-white py-2 px-1 text-sm placeholder:text-slate-400 resize-none min-h-[40px] max-h-[120px] custom-scrollbar outline-none"
+        placeholder="Type your doubt here..."
+        rows="1"
+        onkeydown="handleKey(event)"
+        oninput="autoResize(this)"
+      ></textarea>
+      <button onclick="sendMessage()" class="bg-primary text-white p-2.5 rounded-xl hover:bg-primary/90 transition-all flex items-center justify-center shadow-lg shadow-primary/20">
+        <span class="material-symbols-outlined text-[22px]">send</span>
+      </button>
+    </div>
+    <div class="mt-3 flex items-center justify-center gap-4">
+
+    </div>
+  </div>
+
+</section>
+</div>
+</main>
+
+<!-- Footer -->
+<footer class="md:hidden sticky bottom-0 w-full bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 flex justify-around py-3">
+<button class="flex flex-col items-center text-primary">
+<span class="material-symbols-outlined">chat_bubble</span>
+<span class="text-[10px] font-bold">Doubts</span>
+</button>
+<button class="flex flex-col items-center text-slate-400">
+<span class="material-symbols-outlined">grid_view</span>
+<span class="text-[10px]">Home</span>
+</button>
+<button class="flex flex-col items-center text-slate-400">
+<span class="material-symbols-outlined">menu_book</span>
+<span class="text-[10px]">Study</span>
+</button>
+</footer>
+
+<script>
+// ============================================================
+// STATE
+// ============================================================
+let currentChatId = null;
+let conversationHistory = [];
+let isWaitingForAI = false;
+let isRecording = false;
+let recognition = null;
+
+document.addEventListener("DOMContentLoaded", () => { loadChatList(); });
+
+async function loadChatList() {
+  try {
+    const res  = await fetch("/api/doubts/chats", { credentials: "include" });
+    const list = await res.json();
+    const el   = document.getElementById("chatList");
+    if (!list.length) {
+      el.innerHTML = '<p class="text-xs text-slate-400 text-center py-2">No chats yet</p>';
+      return;
+    }
+    el.innerHTML = list.map(chat => `
+      <div onclick="loadChat(${chat.id})" id="chat-item-${chat.id}"
+        class="group p-3 rounded-lg border border-transparent hover:border-primary/20 hover:bg-primary/5 cursor-pointer transition-all flex items-center justify-between gap-2">
+        <div class="flex items-center gap-2 min-w-0">
+          <span class="material-symbols-outlined text-slate-400 text-[18px] shrink-0">chat_bubble</span>
+          <div class="min-w-0">
+            <p class="text-sm font-medium text-slate-900 dark:text-white line-clamp-1">${escHtml(chat.title)}</p>
+            <span class="text-[11px] text-slate-400 flex items-center gap-1">
+              <span class="material-symbols-outlined text-[13px]">schedule</span>${timeAgo(chat.updated_at)}
+            </span>
+          </div>
+        </div>
+        <button onclick="event.stopPropagation(); deleteChat(${chat.id})"
+          class="opacity-0 group-hover:opacity-100 text-slate-300 hover:text-red-500 transition-all shrink-0">
+          <span class="material-symbols-outlined text-[18px]">delete</span>
+        </button>
+      </div>
+    `).join("");
+  } catch (err) { console.error("Chat list error:", err); }
+}
+
+async function loadChat(chatId) {
+  try {
+    const res  = await fetch(`/api/doubts/chats/${chatId}`, { credentials: "include" });
+    const data = await res.json();
+    currentChatId = chatId;
+    conversationHistory = [];
+    document.querySelectorAll("[id^='chat-item-']").forEach(el => el.classList.remove("chat-item-active"));
+    const item = document.getElementById(`chat-item-${chatId}`);
+    if (item) item.classList.add("chat-item-active");
+    document.getElementById("chatTitle").textContent = data.title;
+    const area = document.getElementById("messagesArea");
+    area.innerHTML = "";
+    data.messages.forEach(msg => {
+      conversationHistory.push({ role: msg.role, content: msg.content });
+      if (msg.role === "user") appendUserMessage(msg.content, false);
+      else appendAIMessage(msg.content, false);
+    });
+    scrollToBottom();
+  } catch (err) { console.error("Load chat error:", err); }
+}
+
+function startNewChat() {
+  currentChatId = null;
+  conversationHistory = [];
+  document.getElementById("chatTitle").textContent = "New Conversation";
+  document.getElementById("messagesArea").innerHTML = `
+    <div class="flex items-start gap-4 max-w-[85%] msg-enter">
+      <div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center shrink-0">
+        <span class="material-symbols-outlined text-white text-2xl">auto_awesome</span>
+      </div>
+      <div class="flex flex-col gap-2">
+        <div class="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded-xl rounded-tl-none shadow-sm">
+          <p class="text-sm leading-relaxed">Hello! I'm your StudyBuddy AI assistant. What can I help you understand today?</p>
+        </div>
+      </div>
+    </div>`;
+  document.querySelectorAll("[id^='chat-item-']").forEach(el => el.classList.remove("chat-item-active"));
+  document.getElementById("messageInput").focus();
+}
+
+async function sendMessage() {
+  const input = document.getElementById("messageInput");
+  const text  = input.value.trim();
+  if (!text || isWaitingForAI) return;
+  input.value = "";
+  autoResize(input);
+  appendUserMessage(text);
+  conversationHistory.push({ role: "user", content: text });
+  isWaitingForAI = true;
+  document.getElementById("typingIndicator").classList.remove("hidden");
+  scrollToBottom();
+  try {
+    // Attach document context if a file was uploaded
+    const docContext = uploadedDocText
+      ? `
+
+[DOCUMENT CONTEXT - "${uploadedDocFileName}"]:
+${uploadedDocText.slice(0, 40000)}`
+      : null;
+
+    const res  = await fetch("/api/doubts/ask", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({ chatId: currentChatId, message: text, history: conversationHistory.slice(-10), docContext })
+    });
+    const data = await res.json();
+    document.getElementById("typingIndicator").classList.add("hidden");
+    isWaitingForAI = false;
+    if (data.chatId && !currentChatId) {
+      currentChatId = data.chatId;
+      document.getElementById("chatTitle").textContent = data.title || "New Conversation";
+      loadChatList();
+    }
+    conversationHistory.push({ role: "assistant", content: data.reply });
+    appendAIMessage(data.reply);
+  } catch (err) {
+    document.getElementById("typingIndicator").classList.add("hidden");
+    isWaitingForAI = false;
+    appendAIMessage("Sorry, something went wrong. Please try again.");
+    console.error("Send error:", err);
+  }
+}
+
+async function deleteChat(chatId) {
+  if (!confirm("Delete this chat?")) return;
+  try {
+    await fetch(`/api/doubts/chats/${chatId}`, { method: "DELETE", credentials: "include" });
+    if (currentChatId === chatId) startNewChat();
+    loadChatList();
+  } catch (err) { console.error("Delete error:", err); }
+}
+
+function appendUserMessage(text, animate = true) {
+  const area = document.getElementById("messagesArea");
+  const div  = document.createElement("div");
+  div.className = `flex items-start gap-4 max-w-[85%] self-end flex-row-reverse ml-auto ${animate ? "msg-enter" : ""}`;
+  div.innerHTML = `
+    <div class="flex flex-col gap-2 items-end">
+      <div class="bg-primary text-white p-4 rounded-xl rounded-tr-none shadow-sm">
+        <p class="text-sm leading-relaxed">${escHtml(text)}</p>
+      </div>
+    </div>`;
+  area.appendChild(div);
+  scrollToBottom();
+}
+
+function appendAIMessage(text, animate = true) {
+  const area = document.getElementById("messagesArea");
+  const div  = document.createElement("div");
+  div.className = `flex items-start gap-4 max-w-[85%] ${animate ? "msg-enter" : ""}`;
+  div.innerHTML = `
+    <div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center shrink-0">
+      <span class="material-symbols-outlined text-white text-2xl">auto_awesome</span>
+    </div>
+    <div class="flex flex-col gap-2">
+      <div class="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded-xl rounded-tl-none shadow-sm ai-text">
+        ${formatAIText(text)}
+      </div>
+    </div>`;
+  area.appendChild(div);
+  scrollToBottom();
+}
+
+function formatAIText(text) {
+  return text
+    .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+    .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+    .replace(/\*(.+?)\*/g, "<em>$1</em>")
+    .replace(/`(.+?)`/g, "<code>$1</code>")
+    .replace(/^### (.+)$/gm, "<h3>$1</h3>")
+    .replace(/^## (.+)$/gm, "<h2>$1</h2>")
+    .replace(/^# (.+)$/gm, "<h1>$1</h1>")
+    .replace(/^\d+\. (.+)$/gm, "<li>$1</li>")
+    .replace(/^- (.+)$/gm, "<li>$1</li>")
+    .replace(/\n{2,}/g, "</p><p>")
+    .replace(/\n/g, "<br>");
+}
+
+function toggleVoice() {
+  if (!("webkitSpeechRecognition" in window) && !("SpeechRecognition" in window)) {
+    alert("Voice input is not supported in your browser. Please use Chrome.");
+    return;
+  }
+  if (isRecording) { recognition.stop(); return; }
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  recognition = new SR();
+  recognition.lang = "en-IN";
+  recognition.continuous = false;
+  recognition.interimResults = true;
+  const btn  = document.getElementById("voiceBtn");
+  const icon = btn.querySelector(".material-symbols-outlined");
+  recognition.onstart = () => { isRecording = true; icon.textContent = "mic_off"; btn.classList.add("voice-active","text-primary"); };
+  recognition.onresult = (e) => {
+    let t = "";
+    for (let i = e.resultIndex; i < e.results.length; i++) t += e.results[i][0].transcript;
+    document.getElementById("messageInput").value = t;
+    autoResize(document.getElementById("messageInput"));
+  };
+  recognition.onend = () => { isRecording = false; icon.textContent = "mic"; btn.classList.remove("voice-active","text-primary"); };
+  recognition.onerror = (e) => { console.error("Voice error:", e.error); isRecording = false; icon.textContent = "mic"; btn.classList.remove("voice-active","text-primary"); };
+  recognition.start();
+}
+
+function handleKey(e) { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendMessage(); } }
+
+// ============================================================
+// DOCUMENT UPLOAD
+// ============================================================
+let uploadedDocText = null;
+let uploadedDocFileName = null;
+
+async function handleDocUpload(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  uploadedDocFileName = file.name;
+  const ext = file.name.split(".").pop().toLowerCase();
+  const textExts = ["txt", "md", "csv", "json", "xml", "html", "js", "py", "java", "cpp", "c", "ts"];
+  const imageExts = ["jpg", "jpeg", "png", "gif", "webp", "bmp"];
+
+  try {
+    if (textExts.includes(ext)) {
+      // Read plain text directly
+      uploadedDocText = await file.text();
+
+    } else if (ext === "pdf") {
+      // Extract text server-side
+      try {
+        const base64 = await fileToBase64(file);
+        const res = await fetch("/api/extract-text", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+          body: JSON.stringify({ base64, filename: file.name })
+        });
+        if (res.ok) {
+          const data = await res.json();
+          uploadedDocText = data.text || `[PDF: ${file.name}]`;
+          if (data.success && data.chars) {
+            uploadedDocFileName = `${file.name} (${Math.round(data.chars/1000)}k chars extracted)`;
+          }
+        } else {
+          uploadedDocText = `[PDF: ${file.name} — could not extract]`;
+        }
+      } catch {
+        uploadedDocText = `[PDF: ${file.name}]`;
+      }
+
+    } else if (imageExts.includes(ext)) {
+      // Store as base64 image for AI context
+      const base64 = await fileToBase64(file);
+      uploadedDocText = `[Image uploaded: ${file.name}]
+[base64:${file.type}:${base64.slice(0, 200)}...]`;
+      uploadedDocFileName = file.name;
+
+    } else if (["docx", "doc", "pptx", "ppt"].includes(ext)) {
+      // Send to server for text extraction
+      try {
+        const base64 = await fileToBase64(file);
+        const res = await fetch("/api/extract-text", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+          body: JSON.stringify({ base64, filename: file.name })
+        });
+        if (res.ok) {
+          const data = await res.json();
+          uploadedDocText = data.text || `[${ext.toUpperCase()}: ${file.name}]`;
+          if (data.success && data.chars) {
+            uploadedDocFileName = `${file.name} (${Math.round(data.chars/1000)}k chars extracted)`;
+          }
+        } else {
+          uploadedDocText = `[${ext.toUpperCase()}: ${file.name} — extraction failed]`;
+        }
+      } catch {
+        uploadedDocText = `[${ext.toUpperCase()}: ${file.name}]`;
+      }
+
+    } else {
+      // Any other binary file — use filename as context
+      uploadedDocText = `[File uploaded: ${file.name} — user wants to discuss this file]`;
+    }
+
+    // Show pill
+    document.getElementById("uploadedDocName").textContent = file.name;
+    document.getElementById("uploadedDocPill").classList.remove("hidden");
+    document.getElementById("uploadedDocPill").classList.add("flex");
+
+    // Prefill placeholder hint
+    const input = document.getElementById("messageInput");
+    if (!input.value.trim()) {
+      input.placeholder = `Ask about "${file.name}"...`;
+    }
+
+  } catch (err) {
+    console.error("Doc upload error:", err);
+    // Still attach the file with a generic context — don't block the user
+    uploadedDocText = `[File uploaded: ${file.name}]`;
+    document.getElementById("uploadedDocName").textContent = file.name;
+    document.getElementById("uploadedDocPill").classList.remove("hidden");
+    document.getElementById("uploadedDocPill").classList.add("flex");
+  }
+
+  // Reset so same file can be re-selected
+  event.target.value = "";
+}
+
+function clearDoc() {
+  uploadedDocText = null;
+  uploadedDocFileName = null;
+  document.getElementById("uploadedDocPill").classList.add("hidden");
+  document.getElementById("uploadedDocPill").classList.remove("flex");
+  document.getElementById("messageInput").placeholder = "Type your doubt here...";
+}
+
+function fileToBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result.split(",")[1]);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+function autoResize(el) { el.style.height = "auto"; el.style.height = Math.min(el.scrollHeight, 120) + "px"; }
+function scrollToBottom() { const a = document.getElementById("messagesArea"); setTimeout(() => a.scrollTop = a.scrollHeight, 50); }
+function escHtml(s) { return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+function timeAgo(d) {
+  if (!d) return "";
+  const s = (Date.now() - new Date(d)) / 1000;
+  if (s < 60) return "Just now";
+  if (s < 3600) return Math.floor(s/60) + "m ago";
+  if (s < 86400) return Math.floor(s/3600) + "h ago";
+  return Math.floor(s/86400) + "d ago";
+}
+</script>
+</body></html>

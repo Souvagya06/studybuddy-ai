@@ -1,0 +1,35 @@
+Features from google classroom-
+1. takes faculty uploaded assignment and gives its difficulty
+2. if student submission is required it will notify if the submission date is coming near. 
+
+
+AI Topic summarizer (If required it will summarize the faculty uploaded assignment or notes)
+AI doubt assistant (if needed assignment wise)
+AI Answer sheet analyze and make me strong at my week point
+
+Also add that i can upload any documents to its summarized topic and doubt clearance
+
+for AI we will use open router. 
+
+This is a full stack project which will use different api's for its different features of functions.
+pages -
+1. Landing Page 
+   Heading - "StudyBuddy.AI"
+   Short Sub-Heading or short description
+   then clg name - "Institute of Engineering and Management, Kolkata.
+   under clg name - Log in/Sign up button
+   
+   at the top right corner there will be 3 buttons - Home, About, Contact
+   
+
+2. Home page
+   Brief description of this project and its usability.
+   All its features with different cards
+
+3. About Page
+   Team Member details (Name, Enrollment no., etc.) which must include -   by the student of IEM Kolkata, Newtown
+   All tech stacks used for this project. there will different cards (Programming, Web/Full Stack, Database, Tools & Tech)
+   
+4. Contact Page
+   This page includes the phone number, Email id, GitHub profile link, linkedin profile link of all the members of the group members. there will be different cards for each member containing his/her contact details.
+   

@@ -1,0 +1,11 @@
+.env
+node_modules/
+uploads/
+*.db
+classroom.txt
+imp (contains api key).txt
+client_secret_*.json
+frontend-dahsboard/
+*.jpeg
+*.jpg
+*.png

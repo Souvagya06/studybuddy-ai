@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>StudyBuddy.AI | Academic Intelligence</title>
+
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1" rel="stylesheet"/>
+
+<script>
+tailwind.config = {
+darkMode: "class",
+theme: {
+extend: {
+colors: {
+primary: "#135bec",
+"background-light": "#f6f6f8",
+"background-dark": "#101622",
+},
+fontFamily: {
+display: ["Inter", "sans-serif"]
+}
+}
+}
+}
+</script>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100">
+
+<div class="relative flex min-h-screen flex-col overflow-x-hidden">
+
+<!-- NAVBAR — matches about.html exactly -->
+<header class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 px-6 md:px-20 py-4 bg-white dark:bg-slate-900 sticky top-0 z-50">
+  <div class="flex items-center gap-2">
+    <div class="text-primary">
+      <span class="material-symbols-outlined text-3xl">school</span>
+    </div>
+    <h2 class="text-slate-900 dark:text-white text-xl font-bold tracking-tight">StudyBuddy.AI</h2>
+  </div>
+  <div class="flex flex-1 justify-end items-center gap-8">
+    <nav class="hidden md:flex items-center gap-8">
+      <a class="text-slate-600 dark:text-slate-300 text-sm font-medium hover:text-primary transition-colors" href="./about.html">About</a>
+      <a class="text-slate-600 dark:text-slate-300 text-sm font-medium hover:text-primary transition-colors" href="./contact.html">Contact</a>
+    </nav>
+    <a href="./login.html">
+      <button class="bg-primary text-white px-5 py-2.5 rounded-lg text-sm font-bold hover:bg-primary/90 shadow-md">
+        Log In / Sign Up
+      </button>
+    </a>
+  </div>
+</header>
+
+
+<main class="flex-1">
+
+<!-- HERO SECTION -->
+
+<section class="pt-24 pb-20 text-center">
+
+<div class="max-w-7xl mx-auto px-4">
+
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase mb-8">
+<span class="material-symbols-outlined text-sm">school</span>
+IEM Kolkata
+</div>
+
+<h1 class="text-5xl md:text-7xl font-black mb-6 bg-gradient-to-r from-slate-900 via-primary to-slate-900 bg-clip-text text-transparent">
+StudyBuddy.AI
+</h1>
+
+<div class="max-w-3xl mx-auto mb-10">
+
+<p class="text-xl md:text-2xl font-medium text-slate-600 mb-2">
+An AI-powered Academic Intelligence & Performance Optimization Platform.
+</p>
+
+<p class="text-lg text-primary font-semibold">
+Institute of Engineering and Management, Kolkata
+</p>
+
+</div>
+
+<div class="flex flex-col sm:flex-row justify-center gap-4 mb-16">
+
+<a href="./login.html"
+class="min-w-[200px] h-14 bg-primary text-white rounded-xl text-lg font-bold flex items-center justify-center hover:shadow-xl transition">
+Log In / Sign Up
+</a>
+
+<a href="./about.html"
+class="min-w-[200px] h-14 bg-white border border-slate-200 rounded-xl text-lg font-semibold flex items-center justify-center hover:shadow-md transition">
+Learn More
+</a>
+
+</div>
+
+
+<!-- IMAGE GRID -->
+
+<div class="relative bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xl max-w-5xl mx-auto p-6">
+
+<div class="grid grid-cols-3 gap-6">
+
+<div class="col-span-2 h-64 rounded-xl overflow-hidden">
+<img src="https://cdn.pixabay.com/photo/2024/02/10/22/14/ai-generated-8565631_1280.jpg" class="w-full h-full object-cover">
+</div>
+
+<div class="h-64 rounded-xl overflow-hidden">
+<img src="https://www.datocms-assets.com/16499/1725380345-bf13f671-1bac-46df-a5bd-36a529df8e4e.jpeg?auto=format&w=1024" class="w-full h-full object-cover">
+</div>
+
+<div class="h-48 rounded-xl overflow-hidden">
+<img src="https://www.careercollegeindia.com/blog/wp-content/uploads/2025/05/ChatGPT-Image-May-7-2025-05_09_19-PM-1024x683.png" class="w-full h-full object-cover">
+</div>
+
+<div class="col-span-2 h-48 rounded-xl overflow-hidden">
+<img src="https://www.21kschool.com/in/wp-content/uploads/sites/4/2025/05/AI-in-Education-Smarter-Learning-for-the-Next-Generation.png" class="w-full h-full object-cover">
+</div>
+
+</div>
+</div>
+
+</div>
+
+</section>
+
+
+<!-- FEATURES SECTION -->
+
+<section class="py-28 bg-white dark:bg-slate-900/50">
+
+<div class="max-w-7xl mx-auto px-4">
+
+<div class="mb-16 text-center">
+
+<h2 class="text-3xl font-black mb-4">
+Academic Intelligence & Optimization
+</h2>
+
+<p class="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+Unlock your potential with our AI-driven platform designed specifically for the unique curriculum requirements of IEM students.
+</p>
+
+</div>
+
+
+<div class="grid md:grid-cols-3 gap-8">
+
+
+<div class="p-8 rounded-2xl border border-slate-100 dark:border-slate-800 bg-background-light dark:bg-background-dark">
+
+<h3 class="text-xl font-bold mb-3">Smart Insights</h3>
+
+<p class="text-slate-600 dark:text-slate-400">
+Get real-time feedback on your study patterns and cognitive load.
+</p>
+
+</div>
+
+
+<div class="p-8 rounded-2xl border border-slate-100 dark:border-slate-800 bg-background-light dark:bg-background-dark">
+
+<h3 class="text-xl font-bold mb-3">Performance Tracking</h3>
+
+<p class="text-slate-600 dark:text-slate-400">
+Monitor your academic progress with detailed predictive analytics.
+</p>
+
+</div>
+
+
+<div class="p-8 rounded-2xl border border-slate-100 dark:border-slate-800 bg-background-light dark:bg-background-dark">
+
+<h3 class="text-xl font-bold mb-3">AI Tutoring</h3>
+
+<p class="text-slate-600 dark:text-slate-400">
+Access personalized learning materials and automated doubt clearance.
+</p>
+
+</div>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- CTA -->
+
+<section class="py-24">
+
+<div class="max-w-5xl mx-auto px-4">
+
+<div class="bg-primary rounded-3xl p-12 text-center text-white">
+
+<h2 class="text-4xl font-black mb-6">
+Ready to excel at IEM?
+</h2>
+
+<p class="text-lg mb-8">
+Join the StudyBuddy.AI community today and start transforming your academic journey.
+</p>
+
+<a href="./login.html"
+class="bg-white text-primary px-8 py-4 rounded-xl text-lg font-bold hover:bg-slate-50 transition">
+Get Started Now
+</a>
+
+</div>
+
+</div>
+
+</section>
+
+</main>
+
+
+<!-- FOOTER -->
+
+<footer class="bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 py-8">
+
+<div class="max-w-7xl mx-auto px-4 text-center">
+
+<div class="flex items-center justify-center gap-2 mb-4">
+
+<span class="material-symbols-outlined text-3xl">school</span>
+
+<span class="text-lg font-bold">StudyBuddy.AI</span>
+
+</div>
+
+<p class="text-slate-500 text-sm">
+StudyBuddy.AI | Institute of Engineering and Management, Kolkata
+</p>
+<p class="text-slate-400 text-xs mt-1">Version 1.0</p>
+
+</div>
+
+</footer>
+
+</div>
+
+</body>
+</html>
