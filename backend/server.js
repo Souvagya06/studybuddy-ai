@@ -9,11 +9,11 @@ import pptx2json from "pptx2json";
 import multer from "multer";
 import fs from "fs";
 import { v2 as cloudinary } from "cloudinary";
-const { CloudinaryStorage } = require2("multer-storage-cloudinary");
 import path from "path";
 import { fileURLToPath } from "url";
 import { createRequire } from "module";
 const require2 = createRequire(import.meta.url);
+const { CloudinaryStorage } = require2("multer-storage-cloudinary");
 
 // ===============================
 // Cloudinary Setup
