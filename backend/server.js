@@ -8,10 +8,21 @@ import mammoth from "mammoth";
 import pptx2json from "pptx2json";
 import multer from "multer";
 import fs from "fs";
+import { v2 as cloudinary } from "cloudinary";
+import { CloudinaryStorage } from "multer-storage-cloudinary";
 import path from "path";
 import { fileURLToPath } from "url";
 import { createRequire } from "module";
 const require2 = createRequire(import.meta.url);
+
+// ===============================
+// Cloudinary Setup
+// ===============================
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key:    process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 import { createClient } from "@libsql/client";
 import session from "express-session";
 import { google } from "googleapis";
@@ -112,31 +123,18 @@ console.log("✅ Doubt chat tables ready");
 
 
 // ===============================
-// Multer File Storage
+// Multer + Cloudinary Storage
 // ===============================
-const storage = multer.diskStorage({
-
-  destination: function (req, file, cb) {
-
-    if (!req.session.user) {
-      return cb(new Error("User not logged in"));
-    }
-
-    const userId = req.session.user.id || req.session.user.email;
-
-    const userFolder = path.join(__dirname, "../uploads", String(userId));
-
-    if (!fs.existsSync(userFolder)) {
-      fs.mkdirSync(userFolder, { recursive: true });
-    }
-
-    cb(null, userFolder);
+const storage = new CloudinaryStorage({
+  cloudinary,
+  params: async (req, file) => {
+    const userId = req.session.user?.id || "unknown";
+    return {
+      folder: `studybuddy/${userId}`,
+      resource_type: "auto",
+      public_id: Date.now() + "-" + file.originalname.replace(/\s+/g, "_"),
+    };
   },
-
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + "-" + file.originalname);
-  }
-
 });
 
 const upload = multer({ storage });
@@ -1169,7 +1167,8 @@ app.post("/api/upload", upload.single("file"), async (req, res) => {
 
   const filename = req.file.originalname;
 
-  const filepath = `uploads/${userId}/${req.file.filename}`;
+  // Cloudinary returns the file URL in req.file.path
+  const filepath = req.file.path;
 
   await db.execute({
     sql: `
