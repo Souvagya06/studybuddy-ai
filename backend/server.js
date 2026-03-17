@@ -26,14 +26,14 @@ const __dirname = path.dirname(__filename);
 // Initialize app
 // ===============================
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
 // ===============================
 // Session Setup
 // ===============================
 app.use(
   session({
-    secret: "studybuddy-secret-key",
+    secret: process.env.SESSION_SECRET || "studybuddy-secret-key",
     resave: false,
     saveUninitialized: false,
   })
@@ -426,7 +426,7 @@ app.get("/logout", async (req, res) => {
     res.clearCookie("connect.sid");
 
     res.redirect(
-      "https://accounts.google.com/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://localhost:5000/about.html"
+      `https://accounts.google.com/Logout?continue=https://appengine.google.com/_ah/logout?continue=${process.env.APP_URL || "http://localhost:5000"}/about.html`
     );
 
   });
