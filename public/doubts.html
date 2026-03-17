@@ -81,21 +81,19 @@
 </head>
 <body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display min-h-screen flex flex-col">
 <!-- Top Navigation Bar -->
-<header class="sticky top-0 z-50 w-full bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 px-6 py-3">
-<div class="max-w-7xl mx-auto flex items-center justify-between">
-<div class="flex items-center gap-2 group cursor-pointer">
-
-<h2 class="text-slate-900 dark:text-white text-xl font-bold tracking-tight">StudyBuddy.AI</h2>
-</div>
-<nav class="hidden md:flex items-center gap-8">
-<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors font-medium text-sm" href="./dashboard.html">Dashboard</a>
-<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors font-medium text-sm" href="./assignments.html">Assignments</a>
-<a class="text-primary dark:text-primary font-semibold text-sm relative after:content-[''] after:absolute after:-bottom-[18px] after:left-0 after:w-full after:h-1 after:bg-primary after:rounded-full" href="#">Doubts</a>
-</nav>
-<div class="flex items-center gap-4">
-<a href="./index.html" class="bg-primary text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-primary/90 transition-all shadow-md shadow-primary/20">Logout</a>
-</div>
-</div>
+<header class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 px-6 md:px-20 py-4 bg-white dark:bg-slate-900 sticky top-0 z-50">
+  <div class="flex items-center gap-2">
+    
+    <h2 class="text-slate-900 dark:text-white text-xl font-bold tracking-tight">StudyBuddy.AI</h2>
+  </div>
+  <div class="flex flex-1 justify-end items-center gap-8">
+    <nav class="hidden md:flex items-center gap-8">
+      <a class="text-slate-600 dark:text-slate-300 text-sm font-medium hover:text-primary transition-colors" href="./dashboard.html">Dashboard</a>
+      <a class="text-slate-600 dark:text-slate-300 text-sm font-medium hover:text-primary transition-colors" href="./assignments.html">Assignments</a>
+      <a class="text-primary text-sm font-bold leading-normal border-b-2 border-primary pb-0.5" href="#">Doubts</a>
+    </nav>
+    <a href="./about.html" class="bg-primary text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-primary/90 transition-all shadow-md shadow-primary/20">Logout</a>
+  </div>
 </header>
 
 <!-- Main Content Area -->
@@ -209,7 +207,7 @@
       </button>
     </div>
     <div class="mt-3 flex items-center justify-center gap-4">
-
+      <p class="text-[11px] text-slate-400">Powered by Groq · LLaMA 3.3 70B</p>
     </div>
   </div>
 
