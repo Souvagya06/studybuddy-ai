@@ -72,4 +72,4 @@ An AI-powered Academic Intelligence & Performance Optimization Platform built fo
 5. Open [http://localhost:5000](http://localhost:5000)
 
 ## 📄 License
-Built for IGP Hackathon 2026 — Institute of Engineering and Management, Kolkata.
+Built for Innovative Group Project 2026 — Institute of Engineering and Management, Kolkata.
