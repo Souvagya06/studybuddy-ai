@@ -30,11 +30,11 @@ An AI-powered Academic Intelligence & Performance Optimization Platform built fo
 
 | Name | Role |
 |------|------|
-| **Souvagya Karmakar** | Full Stack Developer & Project Lead |
-| **Anirban Karmakar** | Frontend Developer |
-| **Ronit Bose** | Backend Developer |
-| **Sugata Dey** | AI & API Integration |
-| **Supratik Chatterjee** | UI/UX Designer |
+| **Souvagya Karmakar** | Full Stack Developer (Backend & AI Systems Lead) |
+| **Anirban Pal** | AI API Integration Enigneer |
+| **Ronit Mishra** | Database Engineer & Data Achitect |
+| **Sugata Nayak** | Frontend Developer (HTML & UI/UX Lead) |
+| **Supratik Patra** | UI & Frontend Integration Engineer |
 
 ## ⚙️ Local Setup
 
