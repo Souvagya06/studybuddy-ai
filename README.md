@@ -1,4 +1,4 @@
-# StudyBuddy.AI 🎓
+   # StudyBuddy.AI 🎓
 
 An AI-powered Academic Intelligence & Performance Optimization Platform built for students of the Institute of Engineering and Management, Kolkata.
 
